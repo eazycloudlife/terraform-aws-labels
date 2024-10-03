@@ -1,37 +1,44 @@
-################################################################################
-# Topic
-################################################################################
-
-output "topic_arn" {
-  description = "The ARN of the SNS topic, as a more obvious property (clone of id)"
-  value       = try(aws_sns_topic.this[0].arn, null)
+#Module      : LABLE
+#Description : This terraform module is designed to generate consistent label names and tags
+#              for resources. You can use terraform-labels to implement a strict naming
+#              convention.
+output "id" {
+  value       = local.id
+  description = "Disambiguated ID."
 }
 
-output "topic_id" {
-  description = "The ARN of the SNS topic"
-  value       = try(aws_sns_topic.this[0].id, null)
+output "name" {
+  value       = local.name
+  description = "Normalized name."
 }
 
-output "topic_name" {
-  description = "The name of the topic"
-  value       = try(aws_sns_topic.this[0].name, null)
+output "repository" {
+  value       = local.repository
+  description = "Terraform current module repo"
 }
 
-output "topic_owner" {
-  description = "The AWS Account ID of the SNS topic owner"
-  value       = try(aws_sns_topic.this[0].owner, null)
+output "business_unit" {
+  value       = local.business_unit
+  description = "Normalized business_unit"
 }
 
-output "topic_beginning_archive_time" {
-  description = "The oldest timestamp at which a FIFO topic subscriber can start a replay"
-  value       = try(aws_sns_topic.this[0].beginning_archive_time, null)
+
+output "environment" {
+  value       = local.environment
+  description = "Normalized environment"
 }
 
-################################################################################
-# Subscription(s)
-################################################################################
+output "attributes" {
+  value       = local.attributes
+  description = "Normalized attributes."
+}
 
-output "subscriptions" {
-  description = "Map of subscriptions created and their attributes"
-  value       = aws_sns_topic_subscription.this
+output "tags" {
+  value       = local.tags
+  description = "Normalized Tag map."
+}
+
+output "label_order" {
+  value       = local.label_order
+  description = "Normalized Tag map."
 }

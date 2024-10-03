@@ -1,10 +1,10 @@
 locals {
-  region = "us-east-1"
-  name   = "ezcl-event-${basename(path.cwd)}"
+  name       = "ezcl-${basename(path.cwd)}"
+  managed_by = "eazycloudlife@gmail.com"
 
   tags = {
     Name       = local.name
     Example    = basename(path.cwd)
-    Repository = "https://github.com/eazycloudlife/terraform-aws-sns"
+    Repository = "https://github.com/eazycloudlife/terraform-aws-labels"
   }
 }

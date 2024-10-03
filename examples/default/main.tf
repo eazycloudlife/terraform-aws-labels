@@ -1,32 +1,20 @@
-# Create a default sns
-module "default_sns" {
+##-----------------------------------------------------------------------------
+## Labels module call.
+##-----------------------------------------------------------------------------
+module "labels" {
   source = "../../"
 
-  name              = local.name
-  display_name      = local.name
-  signature_version = 2
-  data_protection_policy = jsonencode(
+  name          = local.name
+  environment   = "dev"
+  label_order   = ["name", "environment"]
+  business_unit = "Corp"
+  attributes    = ["private"]
+  managed_by    = local.managed_by
+
+  extra_tags = merge(
+    local.tags,
     {
-      Description = "Deny Inbound Address"
-      Name        = "DenyInboundEmailAdressPolicy"
-      Statement = [
-        {
-          "DataDirection" = "Inbound"
-          "DataIdentifier" = [
-            "arn:aws:dataprotection::aws:data-identifier/EmailAddress",
-          ]
-          "Operation" = {
-            "Deny" = {}
-          }
-          "Principal" = [
-            "*",
-          ]
-          "Sid" = "DenyInboundEmailAddress"
-        },
-      ]
-      Version = "2021-06-01"
+      Application = "EazyCloudLife"
     }
   )
-
-  tags = local.tags
 }
